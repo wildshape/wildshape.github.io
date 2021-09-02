@@ -45,6 +45,9 @@ body {
     }
   }
 
+.footer {
+  padding-top:50px;
+}
 
 
 @media(max-width: 990px){
