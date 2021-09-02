@@ -30,7 +30,11 @@ body{
    object-fit: cover;
 }
 
-
+div.ex2 {
+  max-width: 400px;
+  margin: auto;
+  border: 3px solid #fff;
+}
 
 body {
     padding-top: 60px;
