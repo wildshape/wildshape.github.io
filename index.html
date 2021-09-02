@@ -7,24 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<style>
-    .card-img{
-   width: 100%!important;
-   height: 250px!important;
-   object-fit: cover;
-}
+    <link rel='stylesheet' href='./extra.css'>
 
-
-
-  body {
-    padding-top: 60px;
-  }
-  @media (max-width: 980px) {
-    body {
-      padding-top: 0;
-    }
-  }
-</style>
     <title>WildShape.io</title>
   </head>
   <body>
@@ -34,17 +18,18 @@
     <p>Click on the cards below to access an HTML stat block for a chosen wildshape. Cards are ordered by CR, and the level at which they are accessible is shown for druids and moon druids, respectively.</p>
 <div class="container">
   <div class="card-deck">
-  <div class="card">
+    <div class="card">
      <img class="card-img img-fluid" src="img/cat.jpg" alt="Card image cap" />
 
     <div class="card-body">
       <h5 class="card-title">Cat</h5>
       <p class="card-text">CR 0 tiny beast</p>
-      <a href="cat.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
+      <a href="cat.html" class='btn btn-outline-dark stretched-link'>Open</a>
     </div>
     <div class="card-footer text-muted">
       Access level: 2/2</div>
   </div>
+  
   <div class="card">
 
      <img class="card-img img-fluid" src="img/owl.jpg" alt="Card image cap" />
@@ -58,6 +43,8 @@
     <div class="card-footer text-muted">
       Access level: 2/2</div>
   </div>
+
+
     <div class="card">
 
      <img class="card-img img-fluid" src="img/octopus.jpeg" alt="Card image cap" />
