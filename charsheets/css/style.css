@@ -1,0 +1,42 @@
+.btn-master{
+
+background-color: #7238c9;
+
+color:#FFF;
+
+border-color: #3f1490;
+}
+
+.btn-master:hover, .btn-master:focus, .btn-master:active, .btn-master.active, .open .dropdown-toggle.btn-master {
+
+background-color: #8c38c0;
+
+color:#FFF;
+
+border-color: #81129c;
+}
+
+.btn-row{
+display: flex;
+justify-content: space-between;
+}
+
+.btn-grid{
+    margin:10px !important;
+  }
+
+.flex-wrap div {
+    width: 100px;
+    height: 50px;
+}
+
+.grid {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  
+  .grid::after {
+    content: "";
+    flex: auto;
+  }

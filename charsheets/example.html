@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/funcs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+    $('[data-bs-toggle="tooltip"]').tooltip();   
+});
+    </script>
+    <title>Kel Stat Card</title>
+  </head>
+  <body>
+<p></p>
+<div class="container">
+
+<div class="card text-dark bg-light mb-3 mt-5" style="width: 100%;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="kel_full.jpg" class="img-fluid rounded-start" alt="...">
+    <p></p>
+    <h3 class="ml-3">Movement</h3>
+    <p><button id='walkspeed' type="button" class="btn btn-outline-dark ml-3"></button></p>
+    <h3 class="ml-3">Languages</h3>
+      <p><button type="button" class="btn btn-outline-dark ml-3">Common</button>
+    <button type="button" class="btn btn-outline-dark">Elven</button>
+    <button type="button" class="btn btn-outline-dark">Draconic</button></p>
+    <p>
+    <button type="button" class="btn btn-outline-dark ml-3">Celestial</button>
+    <button type="button" class="btn btn-outline-dark">Shadowtongue</button>
+  </p>
+
+    <h3 class="ml-3">Vision</h3>
+    <p><button type="button" class="btn btn-outline-dark ml-3">Darkvision</button><button type="button" id='perception' class="btn btn-outline-dark ml-4" data-toggle="modal" data-target="#Check" onclick="d20(userPerception)"></button>
+    </p> 
+    <p>
+        <h3 class="ml-3">Combat</h3>
+        <p> <button id='spellattack' type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#Check" onclick="d20(7);"></button><button type="button" class="btn btn-outline-info ml-2">Spell Save DC: 17</button>
+        </p>
+        <p><button type="button" id='AC' class="btn btn-outline-dark ml-3"></button><button type="button" id='initiative' class="btn btn-outline-dark ml-2" data-toggle="modal" data-target="#Check" onclick="d20(userPerception)"></button></p>
+    
+    <h3 class="ml-3">Weapons</h3>
+    <p><button type="button" class="btn btn-outline-secondary ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(6,4,1,0,4);" data-bs-toggle="tooltip" data-bs-placement="top" title="Agile | Repeating">Air Repeater</button>
+    <button type="button" class="btn btn-outline-secondary ml-1" data-toggle="modal" data-target="#attack-roll" onclick="damage(6,4,1,0,4);" data-bs-toggle="tooltip" data-bs-placement="top" title="Agile | Finesse | Versatile (S) | Thrown (10ft)">Dagger</button> 
+    <button type="button" class="btn btn-outline-secondary ml-1" data-toggle="modal" data-target="#attack-roll" onclick="damageFatal(6,4,1,0,5,8);" data-bs-toggle="tooltip" data-bs-placement="top" title="Concealable | Concussive | Fatal (d8)">Coat Pistol</button> 
+    <p><button type="button" class="btn btn-outline-secondary ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(6,6,1,0,5);" data-bs-toggle="tooltip" data-bs-placement="top" title="Thrown">Javelin</button>  </p>
+    <h3 class="ml-3">Ammunition</h3>
+    <div class="progress mr-3 ml-3" style="height: 30px;">
+      <div id='ammoBar' class="progress-bar progress-bar bg-primary progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span id="ammo_current" style="line-height:30px;font-weight:bold"></span></div>
+    </div> 
+    <p></p>
+    <div class="input-group mb-4 ml-3">
+      <input id='ammo' type="text" class="form-control" placeholder="Ammo" aria-label="Bullets" aria-describedby="basic-addon2">
+      <div class="input-group-append mr-3">
+        <button class="btn btn-outline-danger" type="button" onclick="useAmmo();" >Use Ammo</button>
+        <button class="btn btn-outline-success mr-3" type="button" onclick="addAmmo();">Add Ammo</button>
+      </div>
+      
+    </div>
+  </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h1 class="card-title">Kel<button type="button" class="btn btn-danger" style="float: right;">Max HP <br> <h4 id='maxhp'><span class="badge badge-light"></span></h4></button><button type="button" class="btn btn-secondary mr-2" style="float: right;">Level<br><h4 id='userLevel'><span class="badge badge-light"></span></h4></button></h1>
+        <p class="card-text"><i>Fetchling/Aasimar Sorcerer</i></p>
+        <p class="card-text"><i>35 yr old <strong>Street Urchin</strong> from <b>Salvation</b> ward of <b>Heartshard</b></i></p>
+        <p>
+          <a class="btn btn-info" data-toggle="collapse" href="#backstory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Backstory
+          </a>
+          <a class="btn btn-info" data-toggle="collapse" href="#inventory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Inventory
+          </a>
+        </p>
+        <div class="collapse" id="backstory">
+          <div class="card card-body">
+            <p>Kel is a Fetchling, who arrived to Heartshard as a baby in a group of refugees who made their way there from the colorless isles. They grew up in the Salvation district outside the city walls, known for its hosting of refugees, and eventually supported themselves by joining a street gang of children called “Lost Pockets”, run by an older boy named Kaladin who took Kel under their wing. (Kel chose their name as a reference to Kal.) </p>
+            <p>Lost pockets eventually had to scatter for a while after a turf war with another gang, and reconstituted for a while as Loose Change. But by the current time, the kids from it have all either moved on or died. Kal has managed to use his earnings to start a small merchant business inside the city walls, his unscrupulous past hidden. But he now does some smuggling on the side, and any former member of Loose Pockets can go to him for aid if they’re in trouble. </p>
+            <p>Kel was taught from an early age to hide her powers by those few around her who knew. But their mission is to find out what they are and how to use what they have. They wish entry to the arcane libraries of the northern half of the city, and see their only path their as joining the illustrious adventuring guild also based in the northern city. When this new guild started up, they immediately signed up hoping could be a stepping stone toward completing their plans.</p>
+          </div>
+        </div>
+        <div class="collapse" id="inventory">
+          <div class="card card-body">
+           <ul>
+             <li>Backpack</li>
+             <li>Thieves' Tools</li>
+             <li>Bedroll</li>
+             <li>Flint & Steel</li>
+             <li>Rope</li>
+             <li>Torch</li>
+             <li>Chalk</li>
+             <li>Rations</li>
+             <li>Soap</li>
+             <li>Waterskin</li>
+             <div class="collapse" id="backstory">
+          <div class="card card-body">
+            <p>Kel is a Fetchling, who arrived to Heartshard as a baby in a group of refugees who made their way there from the colorless isles. They grew up in the Salvation district outside the city walls, known for its hosting of refugees, and eventually supported themselves by joining a street gang of children called “Lost Pockets”, run by an older boy named Kaladin who took Kel under their wing. (Kel chose their name as a reference to Kal.) </p>
+            <p>Lost pockets eventually had to scatter for a while after a turf war with another gang, and reconstituted for a while as Loose Change. But by the current time, the kids from it have all either moved on or died. Kal has managed to use his earnings to start a small merchant business inside the city walls, his unscrupulous past hidden. But he now does some smuggling on the side, and any former member of Loose Pockets can go to him for aid if they’re in trouble. </p>
+            <p>Kel was taught from an early age to hide her powers by those few around her who knew. But their mission is to find out what they are and how to use what they have. They wish entry to the arcane libraries of the northern half of the city, and see their only path their as joining the illustrious adventuring guild also based in the northern city. When this new guild started up, they immediately signed up hoping could be a stepping stone toward completing their plans.</p>
+          </div>
+        </div> 
+           </ul> 
+          </div>
+        </div> 
+        <div class="input-group">
+          <input id='hp' type="text" class="form-control" placeholder="HP Value" aria-label="HP Value" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-danger" type="button" onclick="subBar();" >Subtract HP</button>
+            <button class="btn btn-outline-success" type="button" onclick="addBar();">Add HP</button>
+            <button class="btn btn-outline-warning" type="button" onclick="addTempBar();">Temp HP</button>
+          </div>
+        </div>
+        <p></p>
+        <div class="progress" style="height: 30px;">
+          <div id='progressBar' class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span id="hp_current" style="line-height:30px;font-weight:bold"></span></div>
+          <div id="temp" class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div> 
+
+
+    <hr>
+    
+    <div class="btn-row" role="toolbar">
+  <button id='STR' type="button" class="btn btn-outline-dark mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userSTR);">
+  </button>
+  <button id='DEX' type="button" class="btn btn-outline-dark mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userDEX);">
+  </button>
+  <button id='CON' type="button" class="btn btn-outline-dark mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userCON);">
+  </button>
+  <button id='INT' type="button" class="btn btn-outline-dark mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userINT);">
+  </button>
+  <button id='WIS' type="button" class="btn btn-outline-dark mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userWIS);">
+  </button>
+  <button id='CHA' type="button" class="btn btn-outline-dark mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userCHA);">
+  </button>
+<button id='FORT' type="button" class="btn btn-outline-primary mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userFORT);"></button>
+<button id='REFLEX' type="button" class="btn btn-outline-primary mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userREFLEX);"></button>
+<button id='WILL' type="button" class="btn btn-outline-primary mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userWILL);"></button>
+</div>
+<p></p>
+<hr>
+<h2>Skills </h2>
+<div class="collapse" id="skillkey">
+  <div class="card card-body">
+      Green = Trained, Blue = Expert, Purple = Master, Gold = Legendary
+  </div>
+</div>
+<div class="grid">
+  
+<button id='acrobatics' type="button" class="btn btn-outline-dark mb-3" data-toggle="modal" data-target="#Check" onclick="d20(userAcrobatics);"></button>
+<button id='arcana' type="button" class="btn btn-outline-dark mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userArcana);"></button>
+<button id='athletics' type="button" class="btn btn-outline-dark mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userAthletics);"></button>
+<button id='crafting' type="button" class="btn btn-outline-dark mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userCrafting);"></button>
+<button id='deception' type="button" class="btn btn-outline-dark mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userDeception);"></button>
+
+<button id='diplomacy' type="button" class="btn btn-outline-dark mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userDiplomacy);"></button>
+<button id='intimidation' type="button" class="btn btn-outline-dark mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userIntimidation);"></button>
+<button id='lore' type="button" class="btn btn-outline-dark mb-3 ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userLore);"></button>
+<button id='medicine' type="button" class="btn btn-outline-dark  mb-3  ml-1" data-toggle="modal" data-target="#Check" onclick="d20(userMedicine);"></button>
+
+<button id='nature' type="button" class="btn btn-outline-dark mb-3  ml-2" data-toggle="modal" data-target="#Check" onclick="d20(userNature);"></button>
+<button id='occultism' type="button" class="btn btn-outline-dark mb-3  ml-2" data-toggle="modal" data-target="#Check" onclick="d20(userOccultism);"></button>
+<button id='performance' type="button" class="btn btn-outline-dark mb-3 mr-1" data-toggle="modal" data-target="#Check" onclick="d20(userPerformance);"></button>
+<button id='religion' type="button" class="btn btn-outline-dark mb-3  ml-2" data-toggle="modal" data-target="#Check" onclick="d20(userReligion);"></button>
+<button id='society' type="button" class="btn btn-outline-dark mb-3   ml-3" data-toggle="modal" data-target="#Check" onclick="d20(userSociety);"></button>
+<button id='stealth' type="button" class="btn btn-outline-dark mb-3   ml-3" data-toggle="modal" data-target="#Check" onclick="d20(userStealth);"></button>
+
+<button id='survival' type="button" class="btn btn-outline-dark mb-3 ml-2 mr-2" data-toggle="modal" data-target="#Check" onclick="d20(userSurvival);"></button>
+<button id='thievery' type="button" class="btn btn-outline-dark mb-3 ml-2 mr-2" data-toggle="modal" data-target="#Check" onclick="d20(userThievery);"></button>
+</div>
+<hr>
+
+    <h2 class="display-6">Feats & Focus Spells</h2>
+    <p>
+        <a class="btn btn-info" data-toggle="collapse" href="#pickpocket" role="button" aria-expanded="false" aria-controls="collapseExample">
+          PickPocket
+        </a>
+        <a class="btn btn-info" data-toggle="collapse" href="#ancestral-memories" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Ancestral Memories
+          </a>
+      </p>
+      <div class="collapse" id="pickpocket">
+        <div class="card card-body">
+           <h2>Pickpocket</h2>
+            You can Steal or Palm an Object that’s closely guarded, such as in a pocket, without taking the –5 penalty. You can’t steal objects that would be extremely noticeable or time consuming to remove (like worn shoes or armor or actively wielded objects). If you’re a master in Thievery, you can attempt to Steal from a creature in combat or otherwise on guard. When doing so, Stealing requires 2 manipulate actions instead of 1, and you take a –5 penalty.
+        </div>
+      </div>
+      <div class="collapse" id="ancestral-memories">
+        <div class="card card-body">
+           <h2>Ancestral Memories</h2>
+            <i>verbal</i>
+            <i>Duration: 1 Minute</i>
+            <p>The memories of long-dead spellcasters grant you knowledge in a specific skill. Choose any non-Lore skill, or a Lore skill related to the ancient empire from which your bloodline sprang. You temporarily become trained in that skill and might gain other memories associated with an ancestor who was trained in that skill. If you attempt a task or activity that lasts beyond this spell's duration, use the lower proficiency modifier.
+            </p>
+            <p><strong>Heightened (6th):</strong> You temporarily become an expert in the skill you choose.
+            </p>
+        </div>
+      </div>
+
+   
+
+      <h2 class="display-6">Spells
+      </h2>
+      <h4 class="display-6">Cantrips</h4>
+      <p>
+          <a class="btn btn-secondary" data-toggle="collapse" href="#mage-hand" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Mage Hand
+          </a>
+          <a class="btn btn-secondary" data-toggle="collapse" href="#telekenetic-projectile" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Telekenetic Projectile
+          </a>
+          <a class="btn btn-secondary" data-toggle="collapse" href="#electric-arc" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Electric Arc
+          </a>
+          <a class="btn btn-secondary" data-toggle="collapse" href="#produce-flame" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Produce Flame
+          </a>
+          <a class="btn btn-secondary" data-toggle="collapse" href="#detect-magic" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Detect Magic
+          </a>
+        </p>
+        <div class="collapse" id="mage-hand">
+          <div class="card card-body">
+            <h2>Mage Hand</h2>
+            <i>somatic, verbal, 2 actions</i>
+            
+            <i>Range 30 feet; Targets 1 unattended object of light Bulk or less</i>
+            <i>Duration: sustained.</i>
+
+            <p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>
+            
+            <p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>
+            
+            <p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>
+            
+            <p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>
+          </div>
+        </div>
+        <div class="collapse" id="telekenetic-projectile">
+            <div class="card card-body">
+              <h2>Telekenetic Projectile</h2>
+              <i>somatic, verbal, 2 actions</i>
+              
+              <i>Range 30 feet; Targets 1 creature.</i>
+  
+              <p>  You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal bludgeoning, piercing, or slashing damage - as appropriate for the object you hurled - equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>
+              <p><strong>Critical Success:</strong> You deal double damage. </p>
+              <p><strong>Success:</strong> You deal full damage. </p>
+              <p><strong>Heightened (+1):</strong> The damage increases by 1d6. </p>
+              <span><button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(7,6,1,4,5);">Cast</button>
+              <button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(7,6,2,4,5);">Cast (heightened)</button>
+              </span>
+              </div>
+          </div>
+          <div class="collapse" id="electric-arc">
+            <div class="card card-body">
+              <h2>Electric Arc</h2>
+              <i>somatic, verbal, 2 actions</i>
+              
+              <i>Range 30 feet; Targets 1 or 2 creatures.</i>
+              <i>Saving Throw basic Reflex</i>
+              <p>    An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>
+              <p><strong>Heightened (+1):</strong> The damage increases by 1d4. </p>
+              <span><button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(7,4,1,4,5);">Cast</button>
+                <button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(7,4,2,4,5);">Cast (heightened)</button>
+                </span>
+            </div>
+          </div>
+          <div class="collapse" id="produce-flame">
+            <div class="card card-body">
+              <h2>Produce Flame</h2>
+              <i>somatic, verbal, 2 actions</i>
+              
+              <i>Range 30 feet; Targets 1 creature.</i>
+              <p>  A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach. On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and 1d4 persistent fire damage.
+            </p>
+              <p><strong>Heightened (+1):</strong>Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4. </p>
+              <span><button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(7,4,1,4,5);">Cast</button>
+                <button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#attack-roll" onclick="damage(7,4,2,4,5);">Cast (heightened)</button>
+                </span>
+            </div>
+          </div>
+          <div class="collapse" id="detect-magic">
+            <div class="card card-body">
+              <h2>Detect Magic</h2>
+              <i>somatic, verbal, 2 actions</i>
+              
+              <i>Area: 30 feet.</i>
+              <p> You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.
+            </p>
+            <p>
+                You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.
+            </p>
+            <p>
+                <strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.
+            </p> 
+            <p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that). 
+            </p>
+
+            </div>
+          </div>
+          <h4 class="display-6">1st Level</h4>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">1</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">2</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <label class="form-check-label" for="inlineCheckbox2">3</label>
+          </div>
+      <p>
+          <a class="btn btn-success" data-toggle="collapse" href="#magic-missile" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Magic Missile
+          </a>
+          <a class="btn btn-primary" data-toggle="collapse" href="#mage-armor" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Mage Armor</a>
+          <a class="btn btn-primary" data-toggle="collapse" href="#illusory-object" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Illusory Object
+          </a>
+          <div class="collapse" id="magic-missile">
+            <div class="card card-body">
+              <h2>Magic Missile</h2>
+              <i>somatic, verbal, 1+ actions</i>
+              
+              <i>Range: 120 feet Targets 1 creature.</i>
+              <p> 
+                You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.
+            </p>
+            
+            <p>
+                <strong>Heightened (+2)</strong>You shoot one additional missile with each action you spend.
+            </p>
+            <span><button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#magicmissileattack" onclick="magicMissile(1);">Cast (1)</button>
+              <button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#magicmissileattack" onclick="magicMissile(2);">Cast (2)</button>
+              <button type="button" class="btn btn-outline-danger ml-3" data-toggle="modal" data-target="#magicmissileattack" onclick="magicMissile(3);">Cast (3)</button>
+              </span>
+            </div>
+          </div>
+          <div class="collapse" id="mage-armor">
+            <div class="card card-body">
+              <h2>Mage Armor</h2>
+              <i>somatic,verbal, 2 actions</i>
+              <i>Duration: until the next time you make your daily preparations.</i>
+              <p> You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>
+              <p><strong>Heightened (4th)</strong>: You gain a +1 item bonus to saving throws.
+              </p>
+              <p><strong>Heightened (6th)</strong>: The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.
+              </p>
+              <p><strong>Heightened (10th)</strong>:The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.
+              </p>
+              <span><button type="button" class="btn btn-outline-danger ml-3" onclick="mageArmor(1,5)">Cast</button>
+                <button type="button" class="btn btn-outline-danger ml-3" onclick="mageArmor(0,userDEX)">Remove</button>
+                </span>
+            </div>
+          </div>
+
+          <div class="collapse" id="illusory-object">
+            <div class="card card-body">
+              <h2>Illusory Object</h2>
+              <i>somatic, verbal, 2 actions</i>
+              <i>Range 500 feet; Area 20-foot burst</i>
+              <i>somatic, verbal</i>
+              <i>Duration 10 minutes</i>
+              <p>
+                You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.
+                </p>
+            <p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.
+            </p>
+            <p><strong>Heightened (2nd)</strong>: Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.
+            </p>
+            <p><strong>Heightened (5th):</strong> As the 2nd-level version, but the duration is unlimited.
+                </p>
+
+            </div>
+          </div>
+</p>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+  
+</div>
+
+<div class="modal fade" id="Check" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button"  class="btn btn-primary ml-3" data-toggle="modal" data-target="#attack-roll">Roll: <span id="d20"></span></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="magicmissileattack" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button"  class="btn btn-primary ml-3" data-toggle="modal" data-target="#attack-roll"><span id="magicmissile"></span></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="attack-roll" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button"  class="btn btn-primary ml-3" data-toggle="modal" data-target="#attack-roll">Roll: <span id="roll"></span></button>
+        <button type="button"  class="btn btn-primary ml-3" data-toggle="modal" data-target="#attack-roll">MAP (1): <span id="rollMAP1"></span></button>
+        <button type="button"  class="btn btn-primary ml-3" data-toggle="modal" data-target="#attack-roll">MAP (2): <span id="rollMAP2"></span></button>
+        <p></p>
+        <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#attack-roll">Damage: <span id="damage"></span></button>
+        <button type="button" class="btn btn-warning ml-3" data-toggle="modal" data-target="#attack-roll">Critical Damage: <span id="critdamage"></span></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
