@@ -4,21 +4,50 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <script>
+function search() {
+  // Declare variables
+var input, filter;
+input = document.getElementById("myInput");
+filter = input.value.toUpperCase();
+cards = document.getElementsByClassName("card")
+titles = document.getElementsByClassName("card-title");
 
+// Loop through all list items, and hide those who don't match the search query
+for (i = 0; i < cards.length; i++) {
+a = titles[i];
+if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+    cards[i].style.display = "";
+} else {
+    cards[i].style.display = "none";
+}
+}
+}
+
+
+
+
+    </script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' href='./extra.css'>
-
+    
     <title>WildShape.io</title>
   </head>
   <body>
+
 <div align="center">
   <div class='container'>
     <h1 class="display-1">Wildshape.io</h1>
     <div class="ex2">
     <p></p>
-    <p>Click on the cards below to access an HTML stat block for a chosen wildshape. Cards are ordered by CR, and the level at which they are accessible is shown for druids and moon druids, respectively.</p></div>
+    <p>Click on the cards below to access an HTML stat block for a chosen wildshape. Cards are ordered by CR, and the level at which they are accessible is shown for druids and moon druids, respectively. You can filter by the search bar. Not every animal is included, but I've added those considered mechanically strong.</p></div>
     <p></p>
+    <div id="header" style="width:400px;">
+    <form class="form-group">
+      <input class="form-control mx-sm-3" id="myInput" type="search" placeholder="Search" aria-label="Search" onkeyup="search()">
+    </form>
+  </div>
     <hr>
     <p></p>
 <div class="container">
@@ -27,7 +56,7 @@
      <a href="cat.html"><img class="card-img img-fluid" src="img/cat.jpg" alt="Card image cap" /></a>
 
     <div class="card-body">
-      <h1 class="lead">CAT</h1>
+      <h2 class="card-title">CAT</h2>
       <p class="card-text">CR 0 tiny beast</p>
       <a href="cat.html" class='btn btn-outline-dark stretched-link'>Open</a>
     </div>
@@ -41,7 +70,7 @@
 
     
     <div class="card-body">
-      <h1 class="lead">OWL</h1>
+      <h2 class="card-title">OWL</h2>
       <p class="card-text">CR 0 tiny beast (darkvision)</p>
       <a href="owl.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
     </div>
@@ -55,7 +84,7 @@
      <a href="octopus.html"><img class="card-img img-fluid" src="img/octopus.jpeg" alt="Card image cap" /></a>  
 
     <div class="card-body">
-      <h1 class="lead">OCTOPUS</h1>
+      <h2 class="card-title">OCTOPUS</h2>
       <p class="card-text">CR 0 tiny beast (darkvision)</p>
       <a href="octopus.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
     </div>
@@ -69,7 +98,7 @@
      <a href="spider.html"><img class="card-img img-fluid" src="img/spider.jpg" alt="Card image cap" /></a>
 
     <div class="card-body">
-      <h1 class="lead">SPIDER</h1>
+      <h2 class="card-title">SPIDER</h2>
       <p class="card-text">CR 0 tiny beast</p>
       <a href="spider.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
     </div>
@@ -83,7 +112,7 @@
      <a href="bat.html"><img class="card-img img-fluid" src="img/bat.jpg" alt="Card image cap" /></a>
 
     <div class="card-body">
-      <h1 class="lead">BAT</h1>
+      <h2 class="card-title">BAT</h2>
       <p class="card-text">CR 0 tiny beast</p>
       <a href="bat.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
     </div>
@@ -95,7 +124,7 @@
      <a href="mastiff.html"><img class="card-img img-fluid" src="img/mastiff.jpg" alt="Card image cap" /></a>
 
     <div class="card-body">
-      <h1 class="lead">MASTIFF</h1>
+      <h2 class="card-title">MASTIFF</h2>
       <p class="card-text">CR 1/8 medium beast</p>
       <a href="mastiff.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
     </div>
@@ -112,7 +141,7 @@
        <a href="camel.html"><img class="card-img img-fluid" src="img/camel.jpg" alt="Card image cap" /></a>
   
       <div class="card-body">
-        <h1 class="lead">CAMEL</h1>
+        <h2 class="card-title">CAMEL</h2>
         <p class="card-text">CR 1/8 large beast</p>
         <a href="camel.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
       </div>
@@ -126,7 +155,7 @@
     <a href="wolf.html"><img class="card-img img-fluid" src="img/wolf.jpg" alt="Card image cap" /></a>
 
    <div class="card-body">
-     <h1 class="lead">WOLF</h1>
+     <h2 class="card-title">WOLF</h2>
      <p class="card-text">CR 1/4 medium beast</p>
      <a href="wolf.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -143,7 +172,7 @@
     <a href="giant-wolf-spider.html"><img class="card-img img-fluid" src="img/giant-wolf-spider.jpg" alt="Card image cap" /></a>
 
    <div class="card-body">
-     <h1 class="lead">GIANT WOLF SPIDER</h1>
+     <h2 class="card-title">GIANT WOLF SPIDER</h2>
      <p class="card-text">CR 1/4 medium beast (darkvision)</p>
      <a href="giant-wolf-spider.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -157,7 +186,7 @@
   <a href="giant-badger.html"><img class="card-img img-fluid" src="img/giant-badger.jpg" alt="Card image cap" /></a>
 
  <div class="card-body">
-   <h1 class="lead">GIANT BADGER</h1>
+   <h2 class="card-title">GIANT BADGER</h2>
    <p class="card-text">CR 1/4 large beast (darkvision)</p>
    <a href="giant-badger.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
  </div>
@@ -171,7 +200,7 @@
   <a href="velociraptor.html"><img class="card-img img-fluid" src="img/velociraptor.jpg" alt="Card image cap" /></a>
 
  <div class="card-body">
-   <h1 class="lead">VELOCIRAPTOR</h1>
+   <h2 class="card-title">VELOCIRAPTOR</h2>
    <p class="card-text">CR 1/4 small beast</p>
    <a href="velociraptor.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
  </div>
@@ -188,7 +217,7 @@
     <a href="ape.html"><img class="card-img img-fluid" src="img/ape.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">APE</h1>
+     <h2 class="card-title">APE</h2>
      <p class="card-text">CR 1/2 medium beast</p>
      <a href="ape.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -202,7 +231,7 @@
     <a href="crocodile.html"><img class="card-img img-fluid" src="img/crocodile.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">CROCODILE</h1>
+     <h2 class="card-title">CROCODILE</h2>
      <p class="card-text">CR 1/2 large beast</p>
      <a href="crocodile.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -215,7 +244,7 @@
     <a href="warhorse.html"><img class="card-img img-fluid" src="img/warhorse.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">WARHORSE</h1>
+     <h2 class="card-title">WARHORSE</h2>
      <p class="card-text">CR 1/2 large beast</p>
      <a href="warhorse.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -232,7 +261,7 @@
     <a href="reefshark.html"><img class="card-img img-fluid" src="img/reefshark.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">REEF SHARK</h1>
+     <h2 class="card-title">REEF SHARK</h2>
      <p class="card-text">CR 1/2 medium beast</p>
      <a href="reefshark.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -246,7 +275,7 @@
     <a href="brownbear.html"><img class="card-img img-fluid" src="img/brownbear.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">BROWN BEAR</h1>
+     <h2 class="card-title">BROWN BEAR</h2>
      <p class="card-text">CR 1 large beast</p>
      <a href="brownbear.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -263,7 +292,7 @@
     <a href="deinonychus.html"><img class="card-img img-fluid" src="img/deinonychus.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">DEINONYCHUS</h1>
+     <h2 class="card-title">DEINONYCHUS</h2>
      <p class="card-text">CR 1 medium beast</p>
      <a href="deinonychus.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
@@ -276,7 +305,7 @@
     <a href="direwolf.html"><img class="card-img img-fluid" src="img/direwolf.jpg" alt="Card image cap" /></a>
   
    <div class="card-body">
-     <h1 class="lead">DIREWOLF</h1>
+     <h2 class="card-title">DIREWOLF</h2>
      <p class="card-text">CR 1 medium beast</p>
      <a href="direwolf.html"><button type="button" class="btn btn-outline-dark">Open</button></a>
    </div>
